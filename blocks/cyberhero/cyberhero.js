@@ -5,7 +5,7 @@ export default async function decorate(block) {
   const paragraphs = block.querySelectorAll('p');
 
   rootElement.append(picture);
-  paragraphs.forEach(element => {
+  paragraphs.forEach((element) => {
     if (element.value !== '') {
       rootElement.append(element);
     }
