@@ -1,5 +1,7 @@
 {
   "project": "DA Block Collection",
+  "cdn.preview.host": "main--document-authoring--cyber64-engineering.aem.page",
+  "cdn.live.host": "main--document-authoring--cyber64-engineering.aem.live",
   "editUrlLabel": "Document Authoring",
   "editUrlPattern": "https://da.live/edit#/{{org}}/{{site}}{{pathname}}",
   "plugins": [
