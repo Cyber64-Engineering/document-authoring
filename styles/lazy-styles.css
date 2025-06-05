@@ -36,7 +36,7 @@
 }
 
 .section[data-background="express-gradient"] {
-  background: linear-gradient(90deg, rgba(63, 94, 251, 100%) 0%, rgba(252, 70, 107, 100%) 100%);
+  background: linear-gradient(90deg, rgba(63 94 251 100%) 0%, rgba(252 70 107 100%) 100%);
   color: #FFF;
   padding: 0.2rem 0 0.7rem;
 }
