@@ -4,8 +4,8 @@ export default function decorate(block) {
 
   const classes = Array.from(block.classList);
   classes.forEach((className) => {
-    if (className.startsWith("size-")) {
-      let size = className.split("size-")[1]
+    if (className.startsWith('size-')) {
+      const size = className.split('size-')[1];
       rootElement.style.fontSize = `${size}px`;
     }
   });
