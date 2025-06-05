@@ -1,1 +1,46 @@
 /* add global styles that can be loaded post LCP here */
+
+/* Section styles */
+.section[data-background="dark-grey"] {
+  background-color: #676767;
+  color: white;
+  padding: 0.1rem 0 0.7rem;
+}
+
+.section[data-background="light-grey"] {
+  background-color: #EFEFEF;
+  padding: 0.2rem 0 0.7rem;
+}
+
+.section[data-background="adobe-red"] {
+  background-color: #F00;
+  padding: 0.2rem 0 0.7rem;
+}
+
+.section[data-background="blue"] {
+  background-color: #0077B6;
+  padding: 0.2rem 0 0.7rem;
+}
+
+.section[data-background="blue"] a:any-link {
+  color: #000;
+}
+
+.section[data-background="green"] {
+  background-color: #0077B6;
+  padding: 0.2rem 0 0.7rem;
+}
+
+.section[data-background="green"] a:any-link {
+  color: #000;
+}
+
+.section[data-background="express-gradient"] {
+  background: linear-gradient(90deg, rgba(63 94 251 100%) 0%, rgba(252 70 107 100%) 100%);
+  color: #FFF;
+  padding: 0.2rem 0 0.7rem;
+}
+
+.section[data-background="express-gradient"] a:any-link {
+  color: #000;
+}
