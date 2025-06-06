@@ -1,3 +1,52 @@
+function formatRSD(value) {
+  return value.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function calculateMonthlyPayment(amount, months, interestRateData) {
+  const interestRatePercentage = interestRateData.percentage;
+  const interestRateNumeric = parseInt(interestRatePercentage, 10);
+  const interestRate = interestRateNumeric / 100;
+  const monthlyRate = interestRate / 12;
+  const rateFactor = (1 + monthlyRate) ** months;
+  const monthly = (amount * monthlyRate * rateFactor) / (rateFactor - 1);
+  return monthly;
+}
+
+function getSumOfFees(fees) {
+  let initialSum = 0;
+
+  fees?.data.forEach((fee) => {
+    const feeStringAmount = fee.fixedAmount;
+    const amount = !Number.isNaN(feeStringAmount) ? parseFloat(feeStringAmount) : 0;
+    initialSum += amount;
+  });
+  return initialSum;
+}
+
+function updateCalculator(calculatorInfo) {
+  const additionalFees = getSumOfFees(calculatorInfo.fees);
+  const interestRateData = calculatorInfo?.interestRate?.data?.[0];
+  const loanAmountSlider = document.getElementById('loanAmount');
+  const loanPeriodSlider = document.getElementById('loanPeriod');
+  const loanAmountLabel = document.getElementById('loanAmountLabel');
+  const loanPeriodLabel = document.getElementById('loanPeriodLabel');
+  const creditOutput = document.getElementById('creditOutput');
+  const periodOutput = document.getElementById('periodOutput');
+  const monthlyPaymentOutput = document.getElementById('monthlyPaymentOutput');
+  const amount = parseInt(loanAmountSlider.value, 10);
+  const months = parseInt(loanPeriodSlider.value, 10);
+  let monthlyPayment = calculateMonthlyPayment(amount, months, interestRateData);
+
+  monthlyPayment += additionalFees;
+
+  loanAmountLabel.textContent = amount.toLocaleString('sr-RS');
+  loanPeriodLabel.textContent = months;
+
+  creditOutput.innerHTML = `${amount.toLocaleString('sr-RS')} RSD`;
+  periodOutput.textContent = `${months} months`;
+  monthlyPaymentOutput.textContent = `${formatRSD(monthlyPayment)} RSD`;
+}
+
 export default async function decorate(block) {
   const rootElement = document.createElement('div');
   rootElement.classList.add('creditcalculator');
@@ -46,7 +95,7 @@ export default async function decorate(block) {
   spanLabelForLoanPeriodElement.innerHTML = '18';
 
   labelForLoanPeriodElement.innerHTML = 'I want to pay it out in (months): ';
-  labelForLoanPeriodElement.append(spanLabelForLoanPeriodElement)
+  labelForLoanPeriodElement.append(spanLabelForLoanPeriodElement);
   sliderContainerForLoanPeriod.append(labelForLoanPeriodElement);
 
   const inputRangeLoanPeriodAmount = document.createElement('input');
@@ -109,65 +158,15 @@ export default async function decorate(block) {
 
   /* API CALL */
 
-  const calculatorData = await fetch('https://main--document-authoring--cyber64-engineering.aem.live/financial-site/data/credit.json', { headers: { accept: "application/json", "Access-Control-Allow-Origin": "*" }}).then((response) => response.json);
+  const calculatorData = await fetch('https://main--document-authoring--cyber64-engineering.aem.live/financial-site/data/credit.json', { headers: { accept: 'application/json' } });
   const calculatorInfo = await calculatorData.json();
 
   updateCalculator(calculatorInfo);
 
-  inputRangeLoanAmount.addEventListener('input', (e) => {
+  inputRangeLoanAmount.addEventListener('input', () => {
     updateCalculator(calculatorInfo);
   });
-  inputRangeLoanPeriodAmount.addEventListener('input', (e) => {
+  inputRangeLoanPeriodAmount.addEventListener('input', () => {
     updateCalculator(calculatorInfo);
   });
-}
-
-function formatRSD(value) {
-  return value.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function calculateMonthlyPayment(amount, months, interestRateData) {
-  const interestRatePercentage = interestRateData.percentage;
-  const interestRateNumeric = parseInt(interestRatePercentage);
-  const interestRate = interestRateNumeric / 100;
-  const monthlyRate = interestRate / 12;
-  const rateFactor = Math.pow(1 + monthlyRate, months);
-  const monthly = amount * monthlyRate * rateFactor / (rateFactor - 1);
-  return monthly;
-}
-
-function getSumOfFees(fees) {
-  let initialSum = 0;
-
-  fees?.data.forEach((fee) => {
-    const feeStringAmount = fee.fixedAmount;
-    const amount = !isNaN(feeStringAmount) ? parseFloat(feeStringAmount) : 0;
-    initialSum += amount;
-  });
-  return initialSum;
-}
-
-function updateCalculator(calculatorInfo) {
-  const additionalFees = getSumOfFees(calculatorInfo.fees);
-  const interestRateData = calculatorInfo?.interestRate?.data?.[0];
-  const loanAmountSlider = document.getElementById('loanAmount');
-  const loanPeriodSlider = document.getElementById('loanPeriod');
-  const loanAmountLabel = document.getElementById('loanAmountLabel');
-  const loanPeriodLabel = document.getElementById('loanPeriodLabel');
-  const creditOutput = document.getElementById('creditOutput');
-  const periodOutput = document.getElementById('periodOutput');
-  const monthlyPaymentOutput = document.getElementById('monthlyPaymentOutput');
-  const amount = parseInt(loanAmountSlider.value);
-  const months = parseInt(loanPeriodSlider.value);
-  let monthlyPayment = calculateMonthlyPayment(amount, months, interestRateData);
-
-  monthlyPayment += additionalFees;
-
-  loanAmountLabel.textContent = amount.toLocaleString('sr-RS');
-  loanPeriodLabel.textContent = months;
-
-  creditOutput.innerHTML = `${amount.toLocaleString('sr-RS')} RSD`;
-  periodOutput.textContent = `${months} months`;
-  monthlyPaymentOutput.textContent = `${formatRSD(monthlyPayment)} RSD`;
-
 }
