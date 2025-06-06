@@ -57,7 +57,6 @@ export default async function decorate(block) {
   const container = document.createElement('div');
   container.classList.add('container');
   const section = document.createElement('section');
-  section.classList.add('section');
 
   // Loan Amount markup
 
