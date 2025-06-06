@@ -1,4 +1,4 @@
-import calculatorInfo from "./mockResponse.json" with { type: "json" };
+import { isLocalhost } from '../../scripts/environment.js';
 
 function formatRSD(value) {
   return value.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -160,6 +160,18 @@ export default async function decorate(block) {
   block.append(rootElement);
 
   /* API CALL */
+  const apiHostName = isLocalhost() ? 'http://localhost:3000' : `https://${window.location.host}`;
+  const calculatorData = await fetch(`${apiHostName}/financial-site/data/credit.json`,
+    {
+      'headers': {
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+      },
+      'body': null,
+      'method': 'GET',
+      'mode': 'cors',
+      'credentials': 'omit'
+    });
+  const calculatorInfo = await calculatorData.json();
 
   updateCalculator(calculatorInfo);
 
@@ -169,5 +181,5 @@ export default async function decorate(block) {
   inputRangeLoanPeriodAmount.addEventListener('input', () => {
     updateCalculator(calculatorInfo);
   });
-  
+
 }
