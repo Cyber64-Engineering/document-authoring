@@ -29,6 +29,9 @@
   justify-content: center;
   position: relative;
   width: 100%;
+}
+
+.carousel.style-vertical .carousel-slide {
   min-height: min(50vw, calc(100dvh - var(--header-height)));
 }
 
