@@ -1,3 +1,5 @@
+import { fetchPlaceholders } from '../../scripts/placeholders.js';
+
 function formatRSD(value) {
   return value.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
@@ -23,7 +25,7 @@ function getSumOfFees(fees) {
   return initialSum;
 }
 
-function updateCalculator(calculatorInfo) {
+function updateCalculator(calculatorInfo, placeholders) {
   const additionalFees = getSumOfFees(calculatorInfo.fees);
   const interestRateData = calculatorInfo?.interestRate?.data?.[0];
   const loanAmountSlider = document.getElementById('loanAmount');
@@ -39,12 +41,14 @@ function updateCalculator(calculatorInfo) {
 
   monthlyPayment += additionalFees;
 
+  const { currencyRsd, labelMonths } = placeholders;
+
   loanAmountLabel.textContent = amount.toLocaleString('sr-RS');
   loanPeriodLabel.textContent = months;
 
-  creditOutput.innerHTML = `${amount.toLocaleString('sr-RS')} RSD`;
-  periodOutput.textContent = `${months} months`;
-  monthlyPaymentOutput.textContent = `${formatRSD(monthlyPayment)} RSD`;
+  creditOutput.innerHTML = `${amount.toLocaleString('sr-RS')} ${currencyRsd}`;
+  periodOutput.textContent = `${months} ${labelMonths}`;
+  monthlyPaymentOutput.textContent = `${formatRSD(monthlyPayment)} ${currencyRsd}`;
 }
 
 export default async function decorate(block) {
@@ -55,6 +59,13 @@ export default async function decorate(block) {
   container.classList.add('container');
   const section = document.createElement('section');
   section.classList.add('calculator-section');
+
+  // Placeholder fetching
+  const placeholders = await fetchPlaceholders();
+  const {
+    labelLoanAmount, labelLoanPeriod, labelCredit,
+    labelPayoutPeriod, labelMonthlyRate, noteCreditCalculatorInfo,
+  } = placeholders;
 
   // Loan Amount markup
 
@@ -67,7 +78,7 @@ export default async function decorate(block) {
   spanLabelElement.setAttribute('id', 'loanAmountLabel');
   spanLabelElement.innerHTML = '100000';
 
-  labelElement.innerHTML = 'I want a loan in the following amount (RSD): ';
+  labelElement.innerHTML = `${labelLoanAmount}: `;
   labelElement.append(spanLabelElement);
   sliderContainer.append(labelElement);
 
@@ -94,7 +105,7 @@ export default async function decorate(block) {
   spanLabelForLoanPeriodElement.setAttribute('id', 'loanPeriodLabel');
   spanLabelForLoanPeriodElement.innerHTML = '18';
 
-  labelForLoanPeriodElement.innerHTML = 'I want to pay it out in (months): ';
+  labelForLoanPeriodElement.innerHTML = `${labelLoanPeriod}: `;
   labelForLoanPeriodElement.append(spanLabelForLoanPeriodElement);
   sliderContainerForLoanPeriod.append(labelForLoanPeriodElement);
 
@@ -117,7 +128,7 @@ export default async function decorate(block) {
   outputBoxElement.classList.add('summary');
 
   const creditOutput = document.createElement('div');
-  creditOutput.innerHTML = 'Credit: ';
+  creditOutput.innerHTML = `${labelCredit}: `;
 
   const spanCreditOut = document.createElement('span');
   spanCreditOut.setAttribute('id', 'creditOutput');
@@ -129,7 +140,7 @@ export default async function decorate(block) {
   /* Credit output */
 
   const payoutPeriodElement = document.createElement('div');
-  payoutPeriodElement.innerHTML = 'Payout period: ';
+  payoutPeriodElement.innerHTML = `${labelPayoutPeriod}: `;
   const spanPayoutPeriod = document.createElement('span');
   spanPayoutPeriod.setAttribute('id', 'periodOutput');
   spanPayoutPeriod.innerHTML = '18';
@@ -138,7 +149,7 @@ export default async function decorate(block) {
   outputBoxElement.append(payoutPeriodElement);
 
   const monthyRateElement = document.createElement('div');
-  monthyRateElement.innerHTML = 'Monthly rate: ';
+  monthyRateElement.innerHTML = `${labelMonthlyRate}: `;
   const spanMonthyRate = document.createElement('span');
   spanMonthyRate.setAttribute('id', 'monthlyPaymentOutput');
   spanMonthyRate.innerHTML = '0';
@@ -149,7 +160,7 @@ export default async function decorate(block) {
 
   const note = document.createElement('div');
   note.classList.add('note');
-  note.innerHTML = 'Kreditni kalkulator je informativnog karaktera i ne predstavlja zvaničnu ponudu banke.';
+  note.innerHTML = `${noteCreditCalculatorInfo}`;
   container.append(note);
 
   rootElement.append(container);
@@ -172,12 +183,12 @@ export default async function decorate(block) {
   );
   const calculatorInfo = await calculatorData.json();
 
-  updateCalculator(calculatorInfo);
+  updateCalculator(calculatorInfo, placeholders);
 
   inputRangeLoanAmount.addEventListener('input', () => {
-    updateCalculator(calculatorInfo);
+    updateCalculator(calculatorInfo, placeholders);
   });
   inputRangeLoanPeriodAmount.addEventListener('input', () => {
-    updateCalculator(calculatorInfo);
+    updateCalculator(calculatorInfo, placeholders);
   });
 }
