@@ -1,3 +1,5 @@
+import calculatorInfo from "./mockResponse.json" with { type: "json" };
+
 function formatRSD(value) {
   return value.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
@@ -48,6 +50,7 @@ function updateCalculator(calculatorInfo) {
 }
 
 export default async function decorate(block) {
+
   const rootElement = document.createElement('div');
   rootElement.classList.add('creditcalculator');
 
@@ -158,9 +161,6 @@ export default async function decorate(block) {
 
   /* API CALL */
 
-  const calculatorData = await fetch('https://main--document-authoring--cyber64-engineering.aem.live/financial-site/data/credit.json', { headers: { accept: 'application/json' } });
-  const calculatorInfo = await calculatorData.json();
-
   updateCalculator(calculatorInfo);
 
   inputRangeLoanAmount.addEventListener('input', () => {
@@ -169,4 +169,5 @@ export default async function decorate(block) {
   inputRangeLoanPeriodAmount.addEventListener('input', () => {
     updateCalculator(calculatorInfo);
   });
+  
 }
