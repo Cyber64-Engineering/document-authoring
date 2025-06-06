@@ -1,0 +1,61 @@
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .slider-container {
+        padding: 0 20px;
+    }
+
+    .section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .section label {
+      font-weight: 500;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .slider-group {
+      width: 48%;
+      min-width: 300px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .value-display {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f4f6fa;
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      flex-wrap: wrap;
+    }
+
+    .summary div {
+      flex: 1 1 33%;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .summary div span {
+      display: block;
+      margin-top: 8px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }

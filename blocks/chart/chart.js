@@ -37,10 +37,10 @@ export default async function decorate(block) {
       const chartConfig = {
         type: chartType,
         data: {
-          labels: chartData.map(d => d.date),
+          labels: chartData.map((d) => d.date),
           datasets: [{
             label: `Dividend (${chartData[0]?.currency || 'USD'})`,
-            data: chartData.map(d => d.value),
+            data: chartData.map((d) => d.value),
             backgroundColor: chartType === 'pie'
               ? chartData.map(() => `hsl(${Math.random() * 360}, 70%, 60%)`)
               : 'rgba(75, 192, 192, 0.6)',
@@ -48,7 +48,7 @@ export default async function decorate(block) {
               ? '#fff'
               : 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
-          }]
+          }],
         },
         options: {
           responsive: true,
@@ -56,7 +56,7 @@ export default async function decorate(block) {
             legend: { position: 'top' },
             title: { display: false },
           },
-        }
+        },
       };
 
       if (['bar', 'line'].includes(chartType)) {
@@ -74,7 +74,6 @@ export default async function decorate(block) {
       new Chart(ctx, chartConfig);
     };
     document.head.appendChild(script);
-
   } catch (e) {
     block.textContent = `Error loading chart: ${e.message}`;
   }
