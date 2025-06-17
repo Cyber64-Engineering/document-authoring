@@ -4,6 +4,18 @@ module.exports = {
   env: {
     browser: true,
   },
+  // Required for preact utilities
+  globals: {
+    h: 'readonly',
+    useState: 'readonly',
+    useEffect: 'readonly',
+    useRef: 'readonly',
+    useCallback: 'readonly',
+    useMemo: 'readonly',
+    useReducer: 'readonly',
+    useLayoutEffect: 'readonly',
+    module: 'readonly',
+  },
   parser: '@babel/eslint-parser',
   parserOptions: {
     allowImportExportEverywhere: true,
@@ -15,5 +27,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'], // enforce unix linebreaks
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
     'import/no-cycle': 0, // Allow modules to use each other
+    'import/no-unresolved': 'off',
+    'no-console': ['error', { allow: ['error'] }],
   },
 };
