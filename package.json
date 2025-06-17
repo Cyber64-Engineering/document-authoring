@@ -11,8 +11,9 @@
     "build:json:models": "merge-json-cli -i \"ue/models/component-models.json\" -o \"component-models.json\"",
     "build:json:definitions": "merge-json-cli -i \"ue/models/component-definition.json\" -o \"component-definition.json\"",
     "build:json:filters": "merge-json-cli -i \"ue/models/component-filters.json\" -o \"component-filters.json\"",
-    "build:jsx": "babel blocks --extensions \".jsx\" --out-dir blocks --out-file-extension .js",
-    "watch:jsx":  "babel blocks --extensions \".jsx\" --out-dir blocks --out-file-extension .js --watch",
+    "build:jsx": "babel blocks/jsx-components --extensions \".jsx\" --out-dir blocks/components --out-file-extension .js",
+    "watch:jsx": "babel blocks/jsx-components --extensions \".jsx\" --out-dir blocks/components --out-file-extension .js --watch",
+    "dev": "npm run build:jsx && npm run watch:jsx",
     "prepare": "husky"
   },
   "repository": {

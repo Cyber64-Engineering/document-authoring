@@ -1,6 +1,6 @@
 import { h, render } from 'https://esm.sh/preact';
 import htm from 'https://esm.sh/htm';
-import CashCreditCalculator from './cashcreditcalculator.js';
+import CashCreditCalculator from './components/cashcreditcalculator.js';
 
 const html = htm.bind(h);
 
