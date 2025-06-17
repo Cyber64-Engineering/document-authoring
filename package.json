@@ -11,6 +11,8 @@
     "build:json:models": "merge-json-cli -i \"ue/models/component-models.json\" -o \"component-models.json\"",
     "build:json:definitions": "merge-json-cli -i \"ue/models/component-definition.json\" -o \"component-definition.json\"",
     "build:json:filters": "merge-json-cli -i \"ue/models/component-filters.json\" -o \"component-filters.json\"",
+    "build:jsx": "babel blocks --extensions \".jsx\" --out-dir blocks --out-file-extension .js",
+    "watch:jsx":  "babel blocks --extensions \".jsx\" --out-dir blocks --out-file-extension .js --watch",
     "prepare": "husky"
   },
   "repository": {
@@ -24,7 +26,11 @@
   },
   "homepage": "https://github.com/adobe/aem-block-collection#readme",
   "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.4",
     "@babel/eslint-parser": "7.24.8",
+    "@babel/plugin-transform-react-jsx": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
     "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.29.1",
@@ -33,8 +39,5 @@
     "npm-run-all": "^4.1.5",
     "stylelint": "16.7.0",
     "stylelint-config-standard": "36.0.1"
-  },
-  "dependencies": {
-    "preact": "^10.26.9"
   }
 }

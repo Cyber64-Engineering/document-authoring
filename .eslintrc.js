@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: 'airbnb-base',
+  extends: ['airbnb-base', 'eslint:recommended', 'plugin:preact/recommended'],
   env: {
     browser: true,
   },
@@ -9,7 +9,14 @@ module.exports = {
     allowImportExportEverywhere: true,
     sourceType: 'module',
     requireConfigFile: false,
+    ecmaFeatures: {
+      jsx: true,
+    },
+    babelOptions: {
+      plugins: [['@babel/plugin-transform-react-jsx', { pragma: 'h', pragmaFrag: 'Fragment' }]],
+    },
   },
+  plugins: ['preact'],
   rules: {
     'import/extensions': ['error', { js: 'always' }], // require js file extensions in imports
     'linebreak-style': ['error', 'unix'], // enforce unix linebreaks
