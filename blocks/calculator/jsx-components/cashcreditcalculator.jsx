@@ -1,6 +1,5 @@
-import { h } from 'https://esm.sh/preact';
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
-import { calculateMonthlyPayment } from '../utils.js';
+import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
 import Button from './button.jsx';
 
@@ -22,27 +21,19 @@ export default function CashCreditCalculator() {
   const [loanAmount, setLoanAmount] = useState(100000);
   const [loanPeriod, setLoanPeriod] = useState(18);
   const [monthlyRate, setMonthlyRate] = useState(6164.5);
-  const apiHostName = `${window.location.protocol}//${window.location.host}`;
 
-  useEffect(async () => {
-    try {
-      const placeholdersData = await fetchPlaceholders();
-      const calculatorResponse = await fetch(`${apiHostName}/financial-site/data/credit.json`, {
-        headers: {
-          accept:
-            'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        },
-        body: null,
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'omit',
-      });
-      const calculatorInfoData = await calculatorResponse.json();
-      setPlaceholders(placeholdersData);
-      setCalculatorInfo(calculatorInfoData);
-    } catch (e) {
-      console.error(e, 'an error');
-    }
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const placeholdersData = await fetchPlaceholders();
+        const calculatorInfoData = await fetchCalculatorInfo();
+        setPlaceholders(placeholdersData);
+        setCalculatorInfo(calculatorInfoData);
+      } catch (error) {
+        console.error('Could not fetch data: ', error);
+      }
+    };
+    loadData();
   }, []);
 
   useEffect(() => {
@@ -56,7 +47,7 @@ export default function CashCreditCalculator() {
   return (
     <div class="creditcalculator">
       <h2>
-        Preact version jda <Button />
+        Preact version <Button />
       </h2>
       <div class="container">
         <section class="calculator-section">

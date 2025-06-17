@@ -10,9 +10,7 @@ export function getSumOfFees(fees) {
 
   fees?.data.forEach((fee) => {
     const feeStringAmount = fee.fixedAmount;
-    const amount = !Number.isNaN(feeStringAmount)
-      ? parseFloat(feeStringAmount)
-      : 0;
+    const amount = !Number.isNaN(feeStringAmount) ? parseFloat(feeStringAmount) : 0;
     initialSum += amount;
   });
   return initialSum;
@@ -28,4 +26,23 @@ export function calculateMonthlyPayment(amount, months, calculatorInfo) {
   let monthly = (amount * monthlyRate * rateFactor) / (rateFactor - 1);
   monthly += getSumOfFees(calculatorInfo.fees);
   return formatRSD(monthly);
+}
+
+export async function fetchCalculatorInfo() {
+  const apiHostName = `${window.location.protocol}//${window.location.host}`;
+  try {
+    const calculatorResponse = await fetch(`${apiHostName}/financial-site/data/credit.json`, {
+      headers: {
+        accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+      },
+      body: null,
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'omit',
+    });
+    return await calculatorResponse.json();
+  } catch (e) {
+    console.error('Could not fetch Calculator Info: ', e);
+  }
 }

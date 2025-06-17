@@ -1,6 +1,6 @@
-import { h } from 'https://esm.sh/preact';
+import { h } from "https://esm.sh/preact";
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
-import { calculateMonthlyPayment } from '../utils.js';
+import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
 import Button from "./button.js";
 export default function CashCreditCalculator() {
@@ -18,25 +18,18 @@ export default function CashCreditCalculator() {
   const [loanAmount, setLoanAmount] = useState(100000);
   const [loanPeriod, setLoanPeriod] = useState(18);
   const [monthlyRate, setMonthlyRate] = useState(6164.5);
-  const apiHostName = `${window.location.protocol}//${window.location.host}`;
-  useEffect(async () => {
-    try {
-      const placeholdersData = await fetchPlaceholders();
-      const calculatorResponse = await fetch(`${apiHostName}/financial-site/data/credit.json`, {
-        headers: {
-          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
-        },
-        body: null,
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'omit'
-      });
-      const calculatorInfoData = await calculatorResponse.json();
-      setPlaceholders(placeholdersData);
-      setCalculatorInfo(calculatorInfoData);
-    } catch (e) {
-      console.error(e, 'an error');
-    }
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const placeholdersData = await fetchPlaceholders();
+        const calculatorInfoData = await fetchCalculatorInfo();
+        setPlaceholders(placeholdersData);
+        setCalculatorInfo(calculatorInfoData);
+      } catch (error) {
+        console.error('Could not fetch data: ', error);
+      }
+    };
+    loadData();
   }, []);
   useEffect(() => {
     const monthlyPaymentValue = calculateMonthlyPayment(loanAmount, loanPeriod, calculatorInfo);
@@ -46,7 +39,7 @@ export default function CashCreditCalculator() {
   const updateLoanPeriod = event => setLoanPeriod(+event.target.value);
   return h("div", {
     class: "creditcalculator"
-  }, h("h2", null, "Preact version jda ", h(Button, null)), h("div", {
+  }, h("h2", null, "Preact version ", h(Button, null)), h("div", {
     class: "container"
   }, h("section", {
     class: "calculator-section"

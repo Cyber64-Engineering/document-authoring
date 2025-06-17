@@ -9,6 +9,6 @@ module.exports = {
         pragmaFrag: 'Fragment',
       },
     ],
-    path.resolve(__dirname, 'babel-plugin-rewrite-jsx-extension'),
+    path.resolve(__dirname, 'babel-plugin-preact-jsx-import-fix'),
   ],
 };
