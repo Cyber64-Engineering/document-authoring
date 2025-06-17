@@ -1,3 +1,5 @@
+/* eslint-disable no-new */
+/* eslint-disable no-undef */
 import { readBlockConfig } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
