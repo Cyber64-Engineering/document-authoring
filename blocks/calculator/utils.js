@@ -45,4 +45,5 @@ export async function fetchCalculatorInfo() {
   } catch (e) {
     console.error('Could not fetch Calculator Info: ', e);
   }
+  return {};
 }
