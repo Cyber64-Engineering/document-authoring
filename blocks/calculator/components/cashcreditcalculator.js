@@ -43,7 +43,7 @@ export default function CashCreditCalculator() {
   }, h('h2', null, 'Preact version ', h(Button, null)), h('div', {
     class: 'container',
   }, h('section', {
-    class: 'calculator-section',
+    class: 'calculator-section bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700',
   }, h('div', {
     class: 'slider-container',
   }, h('label', {

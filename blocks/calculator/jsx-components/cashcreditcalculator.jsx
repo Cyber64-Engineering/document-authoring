@@ -50,7 +50,7 @@ export default function CashCreditCalculator() {
         Preact version <Button />
       </h2>
       <div class="container">
-        <section class="calculator-section">
+        <section class="calculator-section bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
           <div class="slider-container">
             <label for="loanAmount">
               {labelLoanAmount}: <span id="loanAmountLabel">{loanAmount.toLocaleString('sr-RS')}</span>

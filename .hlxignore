@@ -8,3 +8,4 @@ test/*
 ue/models/*
 **/*.jsx
 babel-plugin-preact-jsx-import-fix.js
+styles/tailwind-directives.css
