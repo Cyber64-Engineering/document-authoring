@@ -20,12 +20,19 @@ module.exports = function () {
           }
         }
       },
+      JSXAttribute(path) {
+        if (path.node.name.name === 'className') {
+          path.node.name.name = 'class';
+        }
+      },
       Program: {
         enter(path) {
           const hasHImport = path.node.body.some(
             (node) => node.type === 'ImportDeclaration'
               && node.source.value === 'https://esm.sh/preact'
-              && node.specifiers.some((spec) => spec.imported && spec.imported.name === 'h'),
+              && node.specifiers.some(
+                (spec) => spec.imported && spec.imported.name === 'h',
+              ),
           );
           if (!hasHImport) {
             path.node.body.unshift({

@@ -45,13 +45,13 @@ export default function CashCreditCalculator() {
   const updateLoanPeriod = (event) => setLoanPeriod(+event.target.value);
 
   return (
-    <div class="creditcalculator">
+    <div className="creditcalculator">
       <h2>
         Preact version <Button />
       </h2>
-      <div class="container">
-        <section class="calculator-section bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          <div class="slider-container">
+      <div className="container">
+        <section className="calculator-section bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          <div className="slider-container">
             <label for="loanAmount">
               {labelLoanAmount}: <span id="loanAmountLabel">{loanAmount.toLocaleString('sr-RS')}</span>
             </label>
@@ -65,14 +65,14 @@ export default function CashCreditCalculator() {
               onInput={updateLoanAmount}
             />
           </div>
-          <div class="slider-container">
+          <div className="slider-container">
             <label for="loanPeriod">
               {labelLoanPeriod}: <span id="loanPeriodLabel"> {loanPeriod}</span>
             </label>
             <input type="range" id="loanPeriod" min="6" max="60" step="1" value={loanPeriod} onInput={updateLoanPeriod} />
           </div>
         </section>
-        <div class="summary">
+        <div className="summary">
           <div>
             {labelCredit}:
             <span id="creditOutput">
@@ -93,7 +93,7 @@ export default function CashCreditCalculator() {
             </span>
           </div>
         </div>
-        <div class="note">{noteCreditCalculatorInfo}</div>
+        <div className="note">{noteCreditCalculatorInfo}</div>
       </div>
     </div>
   );
