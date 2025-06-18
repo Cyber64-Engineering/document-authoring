@@ -6,3 +6,5 @@ package.json
 package-lock.json
 test/*
 ue/models/*
+**/*.jsx
+babel-plugin-preact-jsx-import-fix.js

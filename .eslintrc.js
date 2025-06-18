@@ -29,5 +29,6 @@ module.exports = {
     'import/no-cycle': 0, // Allow modules to use each other
     'import/no-unresolved': 'off',
     'no-console': ['error', { allow: ['error'] }],
+    'no-unused-vars': 'warn',
   },
 };

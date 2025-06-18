@@ -67,17 +67,9 @@ export default function CashCreditCalculator() {
           </div>
           <div class="slider-container">
             <label for="loanPeriod">
-              {labelLoanPeriod}:<span id="loanPeriodLabel"> {loanPeriod}</span>
+              {labelLoanPeriod}: <span id="loanPeriodLabel"> {loanPeriod}</span>
             </label>
-            <input
-              type="range"
-              id="loanPeriod"
-              min="6"
-              max="60"
-              step="1"
-              value={loanPeriod}
-              onInput={updateLoanPeriod}
-            />
+            <input type="range" id="loanPeriod" min="6" max="60" step="1" value={loanPeriod} onInput={updateLoanPeriod} />
           </div>
         </section>
         <div class="summary">
