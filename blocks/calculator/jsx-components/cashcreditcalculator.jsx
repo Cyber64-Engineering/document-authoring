@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
-import Button from './button.jsx';
 
 export default function CashCreditCalculator() {
   const [
@@ -46,11 +45,8 @@ export default function CashCreditCalculator() {
 
   return (
     <div className="creditcalculator">
-      <h2>
-        Preact version <Button />
-      </h2>
       <div className="container">
-        <section className="calculator-section bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <section className="calculator-section">
           <div className="slider-container">
             <label for="loanAmount">
               {labelLoanAmount}: <span id="loanAmountLabel">{loanAmount.toLocaleString('sr-RS')}</span>

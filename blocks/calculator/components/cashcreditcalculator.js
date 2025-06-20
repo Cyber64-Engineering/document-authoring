@@ -2,7 +2,6 @@ import { h } from 'https://esm.sh/preact';
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
-import Button from './button.js';
 
 export default function CashCreditCalculator() {
   const [{
@@ -40,10 +39,10 @@ export default function CashCreditCalculator() {
   const updateLoanPeriod = (event) => setLoanPeriod(+event.target.value);
   return h('div', {
     class: 'creditcalculator',
-  }, h('h2', null, 'Preact version ', h(Button, null)), h('div', {
+  }, h('div', {
     class: 'container',
   }, h('section', {
-    class: 'calculator-section bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700',
+    class: 'calculator-section',
   }, h('div', {
     class: 'slider-container',
   }, h('label', {
