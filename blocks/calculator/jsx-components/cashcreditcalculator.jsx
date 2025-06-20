@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
-import Button from './button.jsx';
 
 export default function CashCreditCalculator() {
   const [
@@ -45,13 +44,10 @@ export default function CashCreditCalculator() {
   const updateLoanPeriod = (event) => setLoanPeriod(+event.target.value);
 
   return (
-    <div class="creditcalculator">
-      <h2>
-        Preact version <Button />
-      </h2>
-      <div class="container">
-        <section class="calculator-section">
-          <div class="slider-container">
+    <div className="creditcalculator">
+      <div className="container">
+        <section className="calculator-section">
+          <div className="slider-container">
             <label for="loanAmount">
               {labelLoanAmount}: <span id="loanAmountLabel">{loanAmount.toLocaleString('sr-RS')}</span>
             </label>
@@ -65,22 +61,14 @@ export default function CashCreditCalculator() {
               onInput={updateLoanAmount}
             />
           </div>
-          <div class="slider-container">
+          <div className="slider-container">
             <label for="loanPeriod">
-              {labelLoanPeriod}:<span id="loanPeriodLabel"> {loanPeriod}</span>
+              {labelLoanPeriod}: <span id="loanPeriodLabel"> {loanPeriod}</span>
             </label>
-            <input
-              type="range"
-              id="loanPeriod"
-              min="6"
-              max="60"
-              step="1"
-              value={loanPeriod}
-              onInput={updateLoanPeriod}
-            />
+            <input type="range" id="loanPeriod" min="6" max="60" step="1" value={loanPeriod} onInput={updateLoanPeriod} />
           </div>
         </section>
-        <div class="summary">
+        <div className="summary">
           <div>
             {labelCredit}:
             <span id="creditOutput">
@@ -101,7 +89,7 @@ export default function CashCreditCalculator() {
             </span>
           </div>
         </div>
-        <div class="note">{noteCreditCalculatorInfo}</div>
+        <div className="note">{noteCreditCalculatorInfo}</div>
       </div>
     </div>
   );

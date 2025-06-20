@@ -12,8 +12,10 @@
     "build:json:definitions": "merge-json-cli -i \"ue/models/component-definition.json\" -o \"component-definition.json\"",
     "build:json:filters": "merge-json-cli -i \"ue/models/component-filters.json\" -o \"component-filters.json\"",
     "build:jsx": "babel blocks/**/jsx-components --extensions \".jsx\" --out-dir blocks/**/components --out-file-extension .js",
-    "watch:jsx": "babel blocks/**/jsx-components --extensions \".jsx\" --out-dir blocks/**/components --out-file-extension .js --watch",
-    "dev": "npm run build:jsx && npm run watch:jsx",
+    "watch:jsx": "chokidar 'blocks/**/jsx-components/**/*.jsx' -c 'npm run build:jsx'",
+    "build:tailwind": "tailwindcss -i ./styles/tailwind-directives.css -o ./styles/tailwind.css --minify",
+    "watch:tailwind": "chokidar './blocks/**/*.{js,jsx}' -c 'npm run build:tailwind'",
+    "dev": "concurrently \"npm run watch:jsx\" \"npm run watch:tailwind\"",
     "prepare": "husky"
   },
   "repository": {
@@ -32,6 +34,7 @@
     "@babel/eslint-parser": "7.24.8",
     "@babel/plugin-transform-react-jsx": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
+    "chokidar-cli": "^3.0.0",
     "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.29.1",
@@ -39,6 +42,7 @@
     "merge-json-cli": "^1.0.4",
     "npm-run-all": "^4.1.5",
     "stylelint": "16.7.0",
-    "stylelint-config-standard": "36.0.1"
+    "stylelint-config-standard": "36.0.1",
+    "tailwindcss": "^3.3.5"
   }
 }
