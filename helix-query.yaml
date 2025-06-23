@@ -1,0 +1,20 @@
+indices:
+  cyber-bank:
+    include:
+      - /financial-site/accounts/**
+    exclude:
+      - /financial-site/confidential/**
+    target: /query-index.json
+    properties:
+      path:
+        select: link[rel="canonical"]
+        value: attribute(el, "href")
+      title:
+        select: title
+        value: innerHTML(el)
+      image:
+        selectFirst: img 
+        value: attribute(el, "src")
+      description:
+        select: meta[name="description"]
+        value: attribute(el, "content")
