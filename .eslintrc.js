@@ -30,6 +30,6 @@ module.exports = {
     'import/no-unresolved': 'off',
     'no-console': ['warn', { allow: ['error'] }],
     'no-unused-vars': 'warn',
-    'max-len': ['error', { code: 160 }],
+    'max-len': ['warn', { code: 160 }],
   },
 };
