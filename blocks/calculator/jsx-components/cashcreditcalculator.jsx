@@ -1,25 +1,19 @@
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
+import ContentBlock from './renderHTML.jsx';
 
-export default function CashCreditCalculator() {
+export default function CashCreditCalculator({ listOfElements }) {
   const [
-    {
-      labelLoanAmount,
-      labelLoanPeriod,
-      labelCredit,
-      labelPayoutPeriod,
-      labelMonthlyRate,
-      labelMonths,
-      noteCreditCalculatorInfo,
-      currencyRsd,
-    },
+    { labelLoanAmount, labelLoanPeriod, labelCredit, labelPayoutPeriod, labelMonthlyRate, labelMonths, noteCreditCalculatorInfo, currencyRsd },
     setPlaceholders,
   ] = useState({});
   const [calculatorInfo, setCalculatorInfo] = useState({});
   const [loanAmount, setLoanAmount] = useState(100000);
   const [loanPeriod, setLoanPeriod] = useState(18);
   const [monthlyRate, setMonthlyRate] = useState(6164.5);
+
+  console.log(listOfElements);
 
   useEffect(() => {
     const loadData = async () => {
@@ -45,21 +39,14 @@ export default function CashCreditCalculator() {
 
   return (
     <div className="creditcalculator">
+      <ContentBlock nodes={listOfElements} />
       <div className="container">
         <section className="calculator-section">
           <div className="slider-container">
             <label for="loanAmount">
               {labelLoanAmount}: <span id="loanAmountLabel">{loanAmount.toLocaleString('sr-RS')}</span>
             </label>
-            <input
-              type="range"
-              id="loanAmount"
-              min="10000"
-              max="1000000"
-              step="10000"
-              value={loanAmount}
-              onInput={updateLoanAmount}
-            />
+            <input type="range" id="loanAmount" min="10000" max="1000000" step="10000" value={loanAmount} onInput={updateLoanAmount} />
           </div>
           <div className="slider-container">
             <label for="loanPeriod">

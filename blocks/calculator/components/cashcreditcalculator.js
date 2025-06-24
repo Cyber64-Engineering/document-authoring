@@ -2,8 +2,11 @@ import { h } from 'https://esm.sh/preact';
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
+import ContentBlock from './renderHTML.js';
 
-export default function CashCreditCalculator() {
+export default function CashCreditCalculator({
+  listOfElements,
+}) {
   const [{
     labelLoanAmount,
     labelLoanPeriod,
@@ -18,6 +21,7 @@ export default function CashCreditCalculator() {
   const [loanAmount, setLoanAmount] = useState(100000);
   const [loanPeriod, setLoanPeriod] = useState(18);
   const [monthlyRate, setMonthlyRate] = useState(6164.5);
+  console.log(listOfElements);
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -39,7 +43,9 @@ export default function CashCreditCalculator() {
   const updateLoanPeriod = (event) => setLoanPeriod(+event.target.value);
   return h('div', {
     class: 'creditcalculator',
-  }, h('div', {
+  }, h(ContentBlock, {
+    nodes: listOfElements,
+  }), h('div', {
     class: 'container',
   }, h('section', {
     class: 'calculator-section',

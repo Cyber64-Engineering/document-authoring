@@ -28,7 +28,8 @@ module.exports = {
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
     'import/no-cycle': 0, // Allow modules to use each other
     'import/no-unresolved': 'off',
-    'no-console': ['error', { allow: ['error'] }],
+    'no-console': ['warn', { allow: ['error'] }],
     'no-unused-vars': 'warn',
+    'max-len': ['error', { code: 160 }],
   },
 };
