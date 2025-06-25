@@ -4,11 +4,8 @@ indices:
       - /financial-site/accounts/**
     exclude:
       - /financial-site/confidential/**
-    target: /query-index.json
+    target: /financial-site/data/search-data/query-index.json
     properties:
-      path:
-        select: link[rel="canonical"]
-        value: attribute(el, "href")
       title:
         select: title
         value: innerHTML(el)
