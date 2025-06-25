@@ -1,5 +1,5 @@
 import { h } from 'https://esm.sh/preact';
-import { RenderElement } from '../../../scripts/helpers.js';
+import { RenderElement } from '../../../scripts/preactHelpers.js';
 
 export default function ContentBlockText({
   content,

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
-import ContentBlock from './renderHTML.jsx';
+import ContentBlock from './renderTextContent.jsx';
 
 export default function CashCreditCalculator({ content }) {
   const [

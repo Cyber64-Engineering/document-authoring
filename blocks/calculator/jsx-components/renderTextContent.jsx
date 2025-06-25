@@ -1,4 +1,4 @@
-import { RenderElement } from '../../../scripts/helpers.js';
+import { RenderElement } from '../../../scripts/preactHelpers.js';
 
 export default function ContentBlockText({ content }) {
   if (content.length === 0) return null;
