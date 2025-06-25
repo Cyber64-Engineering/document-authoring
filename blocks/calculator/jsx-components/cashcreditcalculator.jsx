@@ -3,7 +3,7 @@ import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
 import ContentBlock from './renderHTML.jsx';
 
-export default function CashCreditCalculator({ listOfElements }) {
+export default function CashCreditCalculator({ content }) {
   const [
     { labelLoanAmount, labelLoanPeriod, labelCredit, labelPayoutPeriod, labelMonthlyRate, labelMonths, noteCreditCalculatorInfo, currencyRsd },
     setPlaceholders,
@@ -12,8 +12,6 @@ export default function CashCreditCalculator({ listOfElements }) {
   const [loanAmount, setLoanAmount] = useState(100000);
   const [loanPeriod, setLoanPeriod] = useState(18);
   const [monthlyRate, setMonthlyRate] = useState(6164.5);
-
-  console.log(listOfElements);
 
   useEffect(() => {
     const loadData = async () => {
@@ -39,7 +37,7 @@ export default function CashCreditCalculator({ listOfElements }) {
 
   return (
     <div className="creditcalculator">
-      <ContentBlock nodes={listOfElements} />
+      <ContentBlock content={content} />
       <div className="container">
         <section className="calculator-section">
           <div className="slider-container">
