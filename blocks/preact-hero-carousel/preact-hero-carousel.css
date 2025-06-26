@@ -1,1 +1,42 @@
-/* stylelint-disable at-rule-no-unknown */
+.preact-carousel-container {
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.preact-carousel-wrapper {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.preact-carousel-track {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.preact-carousel-slide {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  scroll-snap-align: start;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.nav.left {
+  left: 10px;
+}
+
+.nav.right {
+  right: 10px;
+}

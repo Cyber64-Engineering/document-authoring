@@ -8,5 +8,7 @@ const html = htm.bind(h);
 export default async function decorate(block) {
   const content = renderContentBasedOnBlock(block);
   block.innerHTML = '';
+  block.setAttribute('role', 'region');
+  block.setAttribute('aria-roledescription', 'Carousel');
   render(html`<${HeroCarousel} content=${content} />`, block);
 }
