@@ -11,8 +11,13 @@ export default function ContentBlockText({
     'data-block-status': 'loaded',
   }, h('article', {
     class: 'text',
-  }, content.map((element, i) => h(RenderElement, {
-    key: i,
+  }, content.map(({
+    elements,
+    index,
+  }) => h('div', {
+    id: `${index + 1}-row-content`,
+  }, elements.map((element, j) => h(RenderElement, {
+    key: j,
     element,
-  }))));
+  }))))));
 }
