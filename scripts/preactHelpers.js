@@ -8,11 +8,25 @@ const getAttributes = (element) => {
   return attributes;
 };
 
+function mapByIndex(elements) {
+  const map = new Map();
+
+  elements.forEach((node) => {
+    const { index } = node;
+    if (!map.has(index)) {
+      map.set(index, { index, elements: [] });
+    }
+    map.get(index).elements.push(node);
+  });
+
+  return Array.from(map.values()).sort((a, b) => a.index - b.index);
+}
+
 // Removes \n and whitespace nodes
 const isText = (text) => text.replace(/\s/g, '').length > 0;
 
 // Extract values from HTML element and it's children to object
-const elementToObject = (element) => {
+const elementToObject = (element, index) => {
   if (element.nodeType !== Node.ELEMENT_NODE) return null;
 
   const tag = element.tagName.toLowerCase();
@@ -25,7 +39,7 @@ const elementToObject = (element) => {
       }
 
       if (child.nodeType === Node.ELEMENT_NODE) {
-        return elementToObject(child);
+        return elementToObject(child, index);
       }
 
       return null;
@@ -35,11 +49,20 @@ const elementToObject = (element) => {
 
   const attributes = getAttributes(element);
 
-  return tag === 'div' ? children : { tag, attributes, children };
+  return tag === 'div'
+    ? children
+    : {
+      index,
+      tag,
+      attributes,
+      children,
+    };
 };
 
 export function renderContentBasedOnBlock(block) {
-  return Array.from(block.children).map(elementToObject).flat().filter(Boolean);
+  const contentArray = Array.from(block.children).map(elementToObject).flat().filter(Boolean);
+  const contentMap = mapByIndex(contentArray);
+  return contentMap;
 }
 
 export function RenderElement({ element }) {

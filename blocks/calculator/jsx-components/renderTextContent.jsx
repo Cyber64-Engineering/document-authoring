@@ -6,8 +6,12 @@ export default function ContentBlockText({ content }) {
   return (
     <div className="text block" data-block-name="text" data-block-status="loaded">
       <article className="text">
-        {content.map((element, i) => (
-          <RenderElement key={i} element={element} />
+        {content.map(({ elements, index }) => (
+          <div id={`${index + 1}-row-content`}>
+            {elements.map((element, j) => (
+              <RenderElement key={j} element={element} />
+            ))}
+          </div>
         ))}
       </article>
     </div>
