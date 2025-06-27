@@ -1,19 +1,11 @@
 import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
+import ContentBlock from './renderTextContent.jsx';
 
-export default function CashCreditCalculator() {
+export default function CashCreditCalculator({ content }) {
   const [
-    {
-      labelLoanAmount,
-      labelLoanPeriod,
-      labelCredit,
-      labelPayoutPeriod,
-      labelMonthlyRate,
-      labelMonths,
-      noteCreditCalculatorInfo,
-      currencyRsd,
-    },
+    { labelLoanAmount, labelLoanPeriod, labelCredit, labelPayoutPeriod, labelMonthlyRate, labelMonths, noteCreditCalculatorInfo, currencyRsd },
     setPlaceholders,
   ] = useState({});
   const [calculatorInfo, setCalculatorInfo] = useState({});
@@ -45,21 +37,14 @@ export default function CashCreditCalculator() {
 
   return (
     <div className="creditcalculator">
+      <ContentBlock content={content} />
       <div className="container">
         <section className="calculator-section">
           <div className="slider-container">
             <label for="loanAmount">
               {labelLoanAmount}: <span id="loanAmountLabel">{loanAmount.toLocaleString('sr-RS')}</span>
             </label>
-            <input
-              type="range"
-              id="loanAmount"
-              min="10000"
-              max="1000000"
-              step="10000"
-              value={loanAmount}
-              onInput={updateLoanAmount}
-            />
+            <input type="range" id="loanAmount" min="10000" max="1000000" step="10000" value={loanAmount} onInput={updateLoanAmount} />
           </div>
           <div className="slider-container">
             <label for="loanPeriod">
