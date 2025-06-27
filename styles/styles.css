@@ -239,7 +239,7 @@ main > .section {
   margin: 40px 0;
 }
 
-main > .section > div {
+main > .section > div:not(.preact-hero-carousel-wrapper) {
   max-width: 1200px;
   margin: auto;
   padding: 0 24px;
@@ -250,7 +250,7 @@ main > .section:first-of-type {
 }
 
 @media (width >= 900px) {
-  main > .section > div {
+  main > .section > div:not(.preact-hero-carousel-wrapper) {
     padding: 0 32px;
   }
 }

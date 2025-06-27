@@ -25,21 +25,21 @@ const HeroCarousel = ({ content }) => {
 
   return (
     <div className="carousel">
-      <div class="carousel-slides-container">
-        <div class="carousel-navigation-buttons">
+      <div className="carousel-slides-container">
+        <div className="carousel-navigation-buttons">
           <button
             type="button"
-            class="slide-prev"
+            className="slide-prev"
             aria-label="Previous Slide"
             onClick={() => goTo((activeIndex - 1 + content.length) % content.length)}
           ></button>
-          <button type="button" class="slide-next" aria-label="Next Slide" onClick={() => goTo((activeIndex + 1) % content.length)}></button>
+          <button type="button" className="slide-next" aria-label="Next Slide" onClick={() => goTo((activeIndex + 1) % content.length)}></button>
         </div>
 
-        <div class="carousel-slides" ref={wrapperRef}>
+        <div className="carousel-slides" ref={wrapperRef}>
           {content.map((slide, index) => (
             <div
-              class="carousel-slide"
+              className="carousel-slide"
               key={index}
               ref={(element) => {
                 slideRefs.current[index] = element;
