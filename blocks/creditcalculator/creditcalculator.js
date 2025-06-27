@@ -1,54 +1,45 @@
 import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
-function formatRSD(value) {
-  return value.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+async function updateCalculator(
+  placeholders,
+  inputRangeLoanAmount,
+  inputRangeLoanPeriodAmount,
+  spanMonthyRate,
+  loanAmountLabel,
+  loanPeriodLabel,
+  periodOutput,
+  creditOutput,
+) {
+  const queryParams = new URLSearchParams({ borrowedAmount: inputRangeLoanAmount.value, code: 'RSD', term: `${inputRangeLoanPeriodAmount.value}M` }).toString();
+  const apiUrl = `https://1898068-creditcalculator-stage.adobeio-static.net/api/v1/web/credit-calculator/generic?${queryParams}`;
 
-function calculateMonthlyPayment(amount, months, interestRateData) {
-  const interestRatePercentage = interestRateData.percentage;
-  const interestRateNumeric = parseInt(interestRatePercentage, 10);
-  const interestRate = interestRateNumeric / 100;
-  const monthlyRate = interestRate / 12;
-  const rateFactor = (1 + monthlyRate) ** months;
-  const monthly = (amount * monthlyRate * rateFactor) / (rateFactor - 1);
-  return monthly;
-}
+  const calculatorData = await fetch(
+    apiUrl,
+    {
+      headers: {
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+      },
+      body: null,
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'omit',
+    },
+  );
+  const calculatorInfo = await calculatorData.json();
 
-function getSumOfFees(fees) {
-  let initialSum = 0;
+  const amount = inputRangeLoanAmount.value.toLocaleString('sr-RS');
 
-  fees?.data.forEach((fee) => {
-    const feeStringAmount = fee.fixedAmount;
-    const amount = !Number.isNaN(feeStringAmount) ? parseFloat(feeStringAmount) : 0;
-    initialSum += amount;
-  });
-  return initialSum;
-}
-
-function updateCalculator(calculatorInfo, placeholders) {
-  const additionalFees = getSumOfFees(calculatorInfo.fees);
-  const interestRateData = calculatorInfo?.interestRate?.data?.[0];
-  const loanAmountSlider = document.getElementById('loanAmount');
-  const loanPeriodSlider = document.getElementById('loanPeriod');
-  const loanAmountLabel = document.getElementById('loanAmountLabel');
-  const loanPeriodLabel = document.getElementById('loanPeriodLabel');
-  const creditOutput = document.getElementById('creditOutput');
-  const periodOutput = document.getElementById('periodOutput');
-  const monthlyPaymentOutput = document.getElementById('monthlyPaymentOutput');
-  const amount = parseInt(loanAmountSlider.value, 10);
-  const months = parseInt(loanPeriodSlider.value, 10);
-  let monthlyPayment = calculateMonthlyPayment(amount, months, interestRateData);
-
-  monthlyPayment += additionalFees;
+  const months = parseInt(calculatorInfo?.months, 10);
+  const monthlyPayment = calculatorInfo?.mothlyPayment;
 
   const { currencyRsd, labelMonths } = placeholders;
 
-  loanAmountLabel.textContent = amount.toLocaleString('sr-RS');
+  loanAmountLabel.textContent = amount;
   loanPeriodLabel.textContent = months;
 
-  creditOutput.innerHTML = `${amount.toLocaleString('sr-RS')} ${currencyRsd}`;
+  creditOutput.innerHTML = `${amount} ${currencyRsd}`;
   periodOutput.textContent = `${months} ${labelMonths}`;
-  monthlyPaymentOutput.textContent = `${formatRSD(monthlyPayment)} ${currencyRsd}`;
+  spanMonthyRate.textContent = `${monthlyPayment.toLocaleString('sr-RS')} ${currencyRsd}`;
 }
 
 export default async function decorate(block) {
@@ -167,28 +158,39 @@ export default async function decorate(block) {
   block.innerHTML = '';
   block.append(rootElement);
 
-  /* API CALL */
-  const apiHostName = `${window.location.protocol}//${window.location.host}`;
-  const calculatorData = await fetch(
-    `${apiHostName}/financial-site/data/credit.json`,
-    {
-      headers: {
-        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-      },
-      body: null,
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'omit',
-    },
+  updateCalculator(
+    placeholders,
+    inputRangeLoanAmount,
+    inputRangeLoanPeriodAmount,
+    spanMonthyRate,
+    spanLabelElement,
+    spanLabelForLoanPeriodElement,
+    spanPayoutPeriod,
+    spanCreditOut,
   );
-  const calculatorInfo = await calculatorData.json();
-
-  updateCalculator(calculatorInfo, placeholders);
 
   inputRangeLoanAmount.addEventListener('input', () => {
-    updateCalculator(calculatorInfo, placeholders);
+    updateCalculator(
+      placeholders,
+      inputRangeLoanAmount,
+      inputRangeLoanPeriodAmount,
+      spanMonthyRate,
+      spanLabelElement,
+      spanLabelForLoanPeriodElement,
+      spanPayoutPeriod,
+      spanCreditOut,
+    );
   });
   inputRangeLoanPeriodAmount.addEventListener('input', () => {
-    updateCalculator(calculatorInfo, placeholders);
+    updateCalculator(
+      placeholders,
+      inputRangeLoanAmount,
+      inputRangeLoanPeriodAmount,
+      spanMonthyRate,
+      spanLabelElement,
+      spanLabelForLoanPeriodElement,
+      spanPayoutPeriod,
+      spanCreditOut,
+    );
   });
 }

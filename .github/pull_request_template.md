@@ -3,5 +3,5 @@ Please always provide the [GitHub issue(s)](../issues) your PR is for, as well a
 Fix #<gh-issue-id>
 
 Test URLs:
-- Before: https://main--aem-block-collection--adobe.hlx.page
-- After: https://<branch>--aem-block-collection--adobe.hlx.page
+- Before: https://main--document-authoring--cyber64-engineering.aem.page
+- After: https://<branch>--document-authoring--cyber64-engineering.aem.page

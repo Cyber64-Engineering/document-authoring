@@ -1,3 +1,39 @@
+<<<<<<< HEAD
+auto-generated: true
+indices:
+  main:
+    include:
+      - /**
+    target: /query-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: |
+          attribute(el, "content")
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, "content")
+      date:
+        select: head > meta[name="publication-date"]
+        value: |
+          dateValue(attribute(el, 'content'), 'MM-DD-YYYY')
+      lastModified:
+        select: none
+        value: |
+          parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY hh:mm:ss GMT')
+      image:
+        select: head > meta[property="og:image"]
+        value: |
+          match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
+      content:
+        select: main > div
+        values: characters(textContent(el), 0, 200)
+      tags:
+        select: head > meta[property="article:tag"]
+        values: |
+          attribute(el, 'content')
+=======
 indices:
   cyber-bank:
     include:
@@ -18,3 +54,4 @@ indices:
       description:
         select: meta[name="description"]
         value: attribute(el, "content")
+>>>>>>> main
