@@ -1,0 +1,5 @@
+sitemaps:
+  financial-site-en:
+    source: /financial-site/query-index.json
+    destination: /sitemap-en.xml
+    lastmod: YYYY-MM-DD

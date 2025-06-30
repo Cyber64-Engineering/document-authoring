@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 auto-generated: true
 indices:
   main:
@@ -33,25 +32,24 @@ indices:
         select: head > meta[property="article:tag"]
         values: |
           attribute(el, 'content')
-=======
-indices:
-  cyber-bank:
+  sitemap:
     include:
-      - /financial-site/accounts/**
-    exclude:
-      - /financial-site/confidential/**
-    target: /query-index.json
+      - /financial-site/**
+    target: /financial-site/query-index.json
     properties:
-      path:
-        select: link[rel="canonical"]
-        value: attribute(el, "href")
       title:
-        select: title
-        value: innerHTML(el)
-      image:
-        selectFirst: img 
-        value: attribute(el, "src")
+        select: head > meta[property="og:title"]
+        value: |
+          attribute(el, "content")
       description:
-        select: meta[name="description"]
-        value: attribute(el, "content")
->>>>>>> main
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, "content")
+      date:
+        select: head > meta[name="publication-date"]
+        value: |
+          dateValue(attribute(el, 'content'), 'MM-DD-YYYY')
+      lastModified:
+        select: none
+        value: |
+          parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY hh:mm:ss GMT')
