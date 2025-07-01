@@ -54,10 +54,6 @@
   object-fit: cover;
 }
 
-.carousel .carousel-slide .carousel-slide-image {
-  height: 800px;
-}
-
 .carousel .carousel-slide .carousel-slide-content {
   z-index: 1;
   margin: 68px;
