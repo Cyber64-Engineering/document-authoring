@@ -13,8 +13,6 @@
     "build:json:filters": "merge-json-cli -i \"ue/models/component-filters.json\" -o \"component-filters.json\"",
     "build:jsx": "./compile-jsx.sh",
     "watch:jsx": "npm run build:jsx && chokidar 'blocks/**/jsx-components/**/*.jsx' -c 'npm run build:jsx'",
-    "build:tailwind": "tailwindcss -i ./styles/tailwind-directives.css -o ./styles/tailwind.css --minify",
-    "watch:tailwind": "chokidar './blocks/**/*.{js,jsx}' -c 'npm run build:tailwind'",
     "prepare": "husky"
   },
   "repository": {
@@ -41,8 +39,7 @@
     "merge-json-cli": "^1.0.4",
     "npm-run-all": "^4.1.5",
     "stylelint": "16.7.0",
-    "stylelint-config-standard": "36.0.1",
-    "tailwindcss": "^3.3.5"
+    "stylelint-config-standard": "36.0.1"
   },
   "dependencies": {
     "preact": "^10.26.9"
