@@ -1,12 +1,9 @@
-import { h, render } from 'https://esm.sh/preact';
-import htm from 'https://esm.sh/htm';
+import { h, render } from '../../../dist/preact/index.js';
 import { renderContentBasedOnBlock } from '../../scripts/preactHelpers.js';
 import CashCreditCalculator from './components/cashcreditcalculator.js';
-
-const html = htm.bind(h);
 
 export default async function decorate(block) {
   const content = renderContentBasedOnBlock(block);
   block.innerHTML = '';
-  render(html`<${CashCreditCalculator} content=${content} />`, block);
+  render(h(CashCreditCalculator, { content }), block);
 }

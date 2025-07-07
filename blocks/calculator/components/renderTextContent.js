@@ -1,4 +1,4 @@
-import { h } from 'https://esm.sh/preact';
+import { h } from '../../../dist/preact/index.js';
 import { RenderElement } from '../../../scripts/preactHelpers.js';
 
 export default function ContentBlockText({
@@ -6,7 +6,7 @@ export default function ContentBlockText({
 }) {
   if (content.length === 0) return null;
   return h('div', {
-    class: 'text block',
+    class: 'text',
     'data-block-name': 'text',
     'data-block-status': 'loaded',
   }, h('article', {

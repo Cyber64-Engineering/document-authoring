@@ -4,7 +4,7 @@ export default function ContentBlockText({ content }) {
   if (content.length === 0) return null;
 
   return (
-    <div className="text block" data-block-name="text" data-block-status="loaded">
+    <div className="text" data-block-name="text" data-block-status="loaded">
       <article className="text">
         {content.map(({ elements, index }) => (
           <div id={`${index + 1}-row-content`}>
