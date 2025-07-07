@@ -31,6 +31,7 @@
     "@babel/eslint-parser": "7.24.8",
     "@babel/plugin-transform-react-jsx": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
+    "babel-plugin-module-resolver": "^5.0.2",
     "chokidar-cli": "^3.0.0",
     "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",

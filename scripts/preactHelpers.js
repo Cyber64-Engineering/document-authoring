@@ -1,4 +1,4 @@
-import { h } from 'https://esm.sh/preact';
+import { h } from '../../../dist/preact/index.js';
 
 const getAttributes = (element) => {
   const attributes = {};

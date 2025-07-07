@@ -29,7 +29,7 @@ module.exports = function () {
         enter(path) {
           const hasHImport = path.node.body.some(
             (node) => node.type === 'ImportDeclaration'
-              && node.source.value === 'https://esm.sh/preact'
+              && node.source.value === 'dist/preact/index.js'
               && node.specifiers.some(
                 (spec) => spec.imported && spec.imported.name === 'h',
               ),
@@ -46,7 +46,7 @@ module.exports = function () {
               ],
               source: {
                 type: 'StringLiteral',
-                value: 'https://esm.sh/preact',
+                value: 'dist/preact/index.js',
               },
             });
           }

@@ -1,5 +1,4 @@
-import { h } from 'https://esm.sh/preact';
-import { useState, useEffect } from 'https://esm.sh/preact/hooks';
+import { h, useState, useEffect } from '../../../dist/preact/index.js';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
 import ContentBlock from './renderTextContent.js';

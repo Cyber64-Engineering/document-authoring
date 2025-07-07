@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'https://esm.sh/preact/hooks';
+import { useState, useEffect } from '@preact';
 import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders } from '../../../scripts/placeholders.js';
 import ContentBlock from './renderTextContent.jsx';
