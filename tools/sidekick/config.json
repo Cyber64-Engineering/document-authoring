@@ -26,6 +26,20 @@
       "experience": "window",
       "url": "https://labs.aem.live",
       "icon": "https://main--da-block-collection--aemsites.aem.live/media/media_16e7a2074aac8a0f09c8c495ea7acb5fbc0adade4.png"
+    },
+    {
+      "id": "review",
+      "title": "Review...",
+      "environments": [
+        "dev",
+        "preview",
+        "review"
+      ],
+      "url": "https://labs.aem.live/tools/snapshot-admin/palette.html",
+      "isPopover": true,
+      "popoverRect": "width:200px; height: 200px",
+      "passConfig": true,
+      "passReferrer": true
     }
   ],
   "apps": [
