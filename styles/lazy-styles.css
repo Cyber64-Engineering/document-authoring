@@ -1,8 +1,5 @@
 /* add global styles that can be loaded post LCP here */
 
-/* stylelint-disable-next-line import-notation */
-@import './tailwind.css';
-
 /* Section styles */
 .section[data-background="dark-grey"],
 .section[data-background="#676767"] {
