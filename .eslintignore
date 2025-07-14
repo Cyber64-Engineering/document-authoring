@@ -1,3 +1,6 @@
 helix-importer-ui
 **/*.jsx
 /dist
+babel-plugin-preact-jsx-import-fix.js
+compile-jsx.cjs
+scss-compiler.cjs
