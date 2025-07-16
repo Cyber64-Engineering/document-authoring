@@ -11,7 +11,7 @@ const PATH = '/cyber64-engineering/document-authoring';
   // Create the callback to fire when a file is returned
   const callback = (file) => {
     button.insertAdjacentHTML('afterend', `${file.path}`);
-  }
+  };
 
   // Start the crawl
   const { results, getDuration, cancelCrawl } = crawl({ path: PATH, callback, throttle: 10 });
