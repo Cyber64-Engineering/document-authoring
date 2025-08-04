@@ -18,6 +18,24 @@ import {
 } from './aem.js';
 
 /**
+ * load CSS files based on theme preference
+ */
+async function loadThemeCSS(blockName = '') {
+  // Add block names with existing file of aik-bank suffix
+  const blocks = ['hero'];
+  const themes = ['aik-bank', 'aik-group'];
+  const selectedTheme = themes.find((theme) => document.body.classList.contains(theme)) || themes[0];
+  try {
+    if (selectedTheme === 'aik-group') await loadCSS(`${window.hlx.codeBasePath}/styles/styles-${selectedTheme}.css`);
+    if (blocks.find((block) => blockName === block) && selectedTheme === 'aik-bank') {
+      await loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}-${selectedTheme}.css`);
+    }
+  } catch (e) {
+    console.error('Failed to load theme css');
+  }
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
@@ -25,11 +43,12 @@ function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
+  if (h1 && picture && h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING) {
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
   }
+  loadThemeCSS('hero');
 }
 
 /**
@@ -182,6 +201,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  loadThemeCSS();
 }
 
 /**
@@ -227,8 +247,7 @@ export const NX_ORIGIN = branch === 'local' || origin.includes('localhost') ? 'h
 (async function loadDa() {
   /* eslint-disable import/no-unresolved */
   if (searchParams.get('dapreview')) {
-    import('https://da.live/scripts/dapreview.js')
-      .then(({ default: daPreview }) => daPreview(loadPage));
+    import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
   }
   if (searchParams.get('daexperiment')) {
     import(`${NX_ORIGIN}/public/plugins/exp/exp.js`);
