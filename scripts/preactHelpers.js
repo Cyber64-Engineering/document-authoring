@@ -1,4 +1,4 @@
-import { h } from '../../../dist/preact/index.js';
+import { h } from '../dist/preact/index.js';
 
 const getAttributes = (element) => {
   const attributes = {};

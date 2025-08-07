@@ -1,4 +1,4 @@
-import { h, render } from '../../../dist/preact/index.js';
+import { h, render } from '../../dist/preact/index.js';
 import { renderContentBasedOnBlock } from '../../scripts/preactHelpers.js';
 import CashCreditCalculator from './components/cashcreditcalculator.js';
 
