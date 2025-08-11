@@ -34,6 +34,7 @@ module.exports = {
     'no-console': ['warn', { allow: ['error'] }],
     'no-unused-vars': 'warn',
     'max-len': ['warn', { code: 160 }],
+    'object-curly-newline': 'off',
     'no-unused-expressions': 'off',
     'chai-friendly/no-unused-expressions': 'error',
   },

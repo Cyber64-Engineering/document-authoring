@@ -1,4 +1,4 @@
-import { useState, useEffect } from '@preact';
+import { useState, useEffect } from '../../../dist/preact/index.js';
 import { calculateMonthlyPayment, fetchCalculatorInfo as defaultFetchCalculatorInfo } from '../utils.js';
 import { fetchPlaceholders as defaultFetchPlaceholders } from '../../../scripts/placeholders.js';
 import ContentBlock from './renderTextContent.jsx';
