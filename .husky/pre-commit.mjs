@@ -1,13 +1,13 @@
-import { exec } from "node:child_process";
+import { exec } from 'node:child_process';
 
-const run = (cmd) => new Promise((resolve, reject) => exec(
-  cmd,
-  (error, stdout, stderr) => {
-    if (error) reject();
-    if (stderr) reject(stderr);
-    resolve(stdout);
-  }
-));
+const run = (cmd) =>
+  new Promise((resolve, reject) =>
+    exec(cmd, (error, stdout, stderr) => {
+      if (error) reject();
+      if (stderr) reject(stderr);
+      resolve(stdout);
+    }),
+  );
 
 const changeset = await run('git diff --cached --name-only --diff-filter=ACMR');
 const modifiedFiles = changeset.split('\n').filter(Boolean);
@@ -21,14 +21,15 @@ if (modifledPartials.length > 0) {
 }
 
 // ESLint fix on staged .js and .css files inside blocks/
-const jsFiles = modifiedFiles.filter((file) =>
-  file.startsWith('blocks/') && file.endsWith('.js')
-);
-const cssFiles = modifiedFiles.filter((file) =>
-  file.startsWith('blocks/') && file.endsWith('.css')
-);
+const jsFiles = modifiedFiles.filter((file) => file.startsWith('blocks/') && file.endsWith('.js'));
+const cssFiles = modifiedFiles.filter((file) => file.startsWith('blocks/') && file.endsWith('.css'));
+function section(title, icon) {
+  const line = '─'.repeat(3) + '>';
+  console.log(`\n${line} ${icon} ${title}\n`);
+}
 
 try {
+  section('Linting', '🧹');
   if (jsFiles.length > 0) {
     const jsToFix = jsFiles.map((f) => `"${f}"`).join(' ');
     console.log('Running ESLint fix on staged JS files:\n', jsToFix);
@@ -38,6 +39,7 @@ try {
     console.log('No staged JS files in blocks/ to lint.');
   }
   if (cssFiles.length > 0) {
+    console.log(separator);
     const cssToFix = cssFiles.map((f) => `"${f}"`).join(' ');
     console.log('Running stylelint fix on staged CSS files:\n', cssToFix);
     await run(`stylelint --fix ${cssToFix}`);
@@ -45,7 +47,12 @@ try {
   } else {
     console.log('No staged CSS files in blocks/ to lint.');
   }
-} catch (e) {
-  console.error('Linting failed:', e);
+
+  section('Tests', '🧪');
+  console.log('Running test script');
+  await run('npm run test');
+  section('Pre-commit checks passed. Commiting staged files.', '✅ ');
+} catch {
+  section('Pre-commit checks failed. Please fix the errors above before committing.', '❌');
   process.exit(1);
 }
