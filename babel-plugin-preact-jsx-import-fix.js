@@ -1,4 +1,5 @@
-module.exports = function () {
+// babel-plugin-preact-jsx-import-fix.mjs
+export default function () {
   return {
     visitor: {
       ImportDeclaration(path) {
@@ -9,9 +10,9 @@ module.exports = function () {
       },
       CallExpression(path) {
         if (
-          path.node.callee.type === 'Import'
-          && path.node.arguments.length === 1
-          && path.node.arguments[0].type === 'StringLiteral'
+          path.node.callee.type === 'Import' &&
+          path.node.arguments.length === 1 &&
+          path.node.arguments[0].type === 'StringLiteral'
         ) {
           const importPath = path.node.arguments[0].value;
           if (importPath.endsWith('.jsx')) {
@@ -27,11 +28,12 @@ module.exports = function () {
       Program: {
         enter(path) {
           const hasHImport = path.node.body.some(
-            (node) => node.type === 'ImportDeclaration'
-              && node.source.value === 'dist/preact/index.js'
-              && node.specifiers.some(
-                (spec) => spec.imported && spec.imported.name === 'h',
-              ),
+            (node) =>
+              node.type === 'ImportDeclaration' &&
+              node.source.value === 'dist/preact/index.js' &&
+              node.specifiers.some(
+                (spec) => spec.imported && spec.imported.name === 'h'
+              )
           );
           if (!hasHImport) {
             path.node.body.unshift({
@@ -53,4 +55,4 @@ module.exports = function () {
       },
     },
   };
-};
+}

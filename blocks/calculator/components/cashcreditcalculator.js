@@ -1,10 +1,12 @@
 import { h, useState, useEffect } from '../../../dist/preact/index.js';
-import { calculateMonthlyPayment, fetchCalculatorInfo } from '../utils.js';
-import { fetchPlaceholders } from '../../../scripts/placeholders.js';
+import { calculateMonthlyPayment, fetchCalculatorInfo as defaultFetchCalculatorInfo } from '../utils.js';
+import { fetchPlaceholders as defaultFetchPlaceholders } from '../../../scripts/placeholders.js';
 import ContentBlock from './renderTextContent.js';
 
 export default function CashCreditCalculator({
   content,
+  fetchCalculatorInfo = defaultFetchCalculatorInfo,
+  fetchPlaceholders = defaultFetchPlaceholders,
 }) {
   const [{
     labelLoanAmount,

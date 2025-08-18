@@ -1,9 +1,12 @@
 module.exports = {
   root: true,
-  extends: 'airbnb-base',
+  extends: ['airbnb-base', 'plugin:chai-friendly/recommended'],
   env: {
     browser: true,
+    mocha: true,
+    node: true,
   },
+  plugins: ['chai-friendly'],
   // Required for preact utilities
   globals: {
     h: 'readonly',
@@ -31,5 +34,8 @@ module.exports = {
     'no-console': ['warn', { allow: ['error'] }],
     'no-unused-vars': 'warn',
     'max-len': ['warn', { code: 160 }],
+    'object-curly-newline': 'off',
+    'no-unused-expressions': 'off',
+    'chai-friendly/no-unused-expressions': 'error',
   },
 };

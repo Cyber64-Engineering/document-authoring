@@ -1,0 +1,63 @@
+export default {
+  data: {
+    total: 21,
+    offset: 0,
+    limit: 21,
+    data: [
+      { Key: 'phone-number', Text: '1-800-585-0774', ':translate': 'yes' },
+      { Key: 'hello-world', Text: 'Hello world!', ':translate': 'yes' },
+      { Key: 'goodnight-moon', Text: 'Goodnight moon.', ':translate': 'yes' },
+      { Key: 'change-region', Text: 'Choose your region', ':translate': 'yes' },
+      {
+        Key: 'change-region-description',
+        Text: 'Selecting a region changes the language and/or content on Adobe.com.',
+        ':translate': 'yes',
+      },
+      { Key: 'your-domain', Text: 'Your domain', ':translate': 'yes' },
+      {
+        Key: 'your-workfront-subdomain',
+        Text: 'Subdomain for your my.workfront.com',
+        ':translate': 'yes',
+      },
+      { Key: 'sign-in', Text: 'Sign in', ':translate': 'no' },
+      { Key: 'email', Text: 'Email', ':translate': 'no' },
+      { Key: 'password', Text: 'Password', ':translate': 'no' },
+      {
+        Key: 'please-enter-your-subdomain',
+        Text: 'Please enter your subdomain.',
+        ':translate': 'yes',
+      },
+      { Key: 'i-do-not-exist', Text: 'now I do', ':translate': 'yes' },
+      { Key: 'footer-adobe', Text: 'Adobe', ':translate': 'no' },
+      { Key: 'currency-rsd', Text: 'RSD', ':translate': 'no' },
+      {
+        Key: 'label-loan-amount',
+        Text: 'I want a loan in the following amount (RSD)',
+        ':translate': 'no',
+      },
+      {
+        Key: 'label-loan-period',
+        Text: 'I want to pay it out in (months)',
+        ':translate': 'no',
+      },
+      { Key: 'label-credit', Text: 'Credit', ':translate': 'yes' },
+      { Key: 'label-payout-period', Text: 'Payout period', ':translate': 'yes' },
+      { Key: 'label-monthly-rate', Text: 'Monthly rate', ':translate': 'yes' },
+      {
+        Key: 'note-credit-calculator-info',
+        Text: 'Kreditni kalkulator je informativnog karaktera i ne predstavlja zvaničnu ponudu banke.',
+        ':translate': 'yes',
+      },
+      { Key: 'label-months', Text: 'months', ':translate': 'yes' },
+    ],
+  },
+  dnt: {
+    total: 1,
+    offset: 0,
+    limit: 1,
+    data: [{ 'dnt-sheet': '*', 'dnt-columns': 'key' }],
+  },
+  ':version': 3,
+  ':names': ['data', 'dnt'],
+  ':type': 'multi-sheet',
+};

@@ -12,7 +12,7 @@ export default function decorate(block) {
 
   const paragraphs = block.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
   paragraphs.forEach((element) => {
-    if (element.value !== '') {
+    if (element.textContent.trim() !== '') {
       rootElement.append(element);
     }
   });
