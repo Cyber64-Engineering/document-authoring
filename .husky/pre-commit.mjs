@@ -39,7 +39,6 @@ try {
     console.log('No staged JS files in blocks/ to lint.');
   }
   if (cssFiles.length > 0) {
-    console.log(separator);
     const cssToFix = cssFiles.map((f) => `"${f}"`).join(' ');
     console.log('Running stylelint fix on staged CSS files:\n', cssToFix);
     await run(`stylelint --fix ${cssToFix}`);
