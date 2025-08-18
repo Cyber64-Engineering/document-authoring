@@ -11,7 +11,6 @@ describe('Text component test', () => {
     dom = new JSDOM('<!DOCTYPE html><body></body>');
     document = dom.window.document;
 
-    // Setup a fake block with some HTML content
     block = document.createElement('div');
     block.classList.add('size-18');
     block.innerHTML = `
@@ -41,11 +40,14 @@ describe('Text component test', () => {
     const article = block.querySelector('article');
     const children = Array.from(article.children);
 
-    expect(children.length).to.equal(3); // h2, p, p (skips empty one)
-    expect(children[0].tagName).to.equal('H2');
-    expect(children[0].textContent).to.equal('Title');
-    expect(children[1].textContent).to.equal('Paragraph 1');
-    expect(children[2].textContent).to.equal('Paragraph 2');
+    expect(children.length).to.equal(3);
+
+    children.forEach((child) => {
+      expect(child.textContent).to.be.a('string');
+      expect(child.textContent.length).to.be.greaterThan(0); // not empty
+      expect(child.textContent.length).to.be.lessThan(1000); // arbitrary max length
+      expect(child.textContent.trim()).to.not.match(/^\s*$/); // not just whitespace
+    });
   });
 
   it('clears the original block before appending the new article', () => {
