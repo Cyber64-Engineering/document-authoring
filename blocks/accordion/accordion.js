@@ -10,6 +10,7 @@ export default function decorate(block) {
     const label = row.children[0];
     const summary = document.createElement('summary');
     summary.className = 'accordion-item-label';
+    console.log(...label.childNodes);
     summary.append(...label.childNodes);
     // decorate accordion item body
     const body = row.children[1];
