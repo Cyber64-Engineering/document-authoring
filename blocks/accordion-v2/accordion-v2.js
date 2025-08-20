@@ -3,29 +3,41 @@ export default function decorate(block) {
     const label = row.children[0].children[0];
     const summary = document.createElement('summary');
     summary.className = 'accordion-item-label';
-    summary.append(label);
-    const body = row.children[0].children[0];
+    const body = row.children[0].children[1];
+    const isAccordionContent = body.querySelector('tr td') && body.querySelector('tr td').textContent === 'accordion-content';
+    const accordionContent = isAccordionContent ? body.querySelector('tbody').children[1].children[0] : null;
     const itemContainer = document.createElement('div');
     itemContainer.className = 'accordion-item-body';
-    itemContainer.append(...body.childNodes);
-    [...itemContainer.children].forEach((innerRow) => {
-      console.log(innerRow);
-      const labelInner = innerRow.children[0].children[0];
-      const summaryInner = document.createElement('summary');
-      const titleInner = document.createElement('p');
-      titleInner.append(...labelInner.childNodes);
-      summaryInner.className = 'accordion-item-label';
-      summaryInner.append(titleInner);
-      const bodyInner = innerRow.children[0].children[0];
-      const itemContainerInner = document.createElement('div');
-      itemContainerInner.append(...bodyInner.childNodes);
-      const detailsInner = document.createElement('details');
-      detailsInner.className = 'accordion-item';
-      detailsInner.append(summaryInner, itemContainerInner);
-      innerRow.replaceWith(detailsInner);
-    });
+    if (accordionContent) itemContainer.append(...accordionContent.childNodes);
+    body.remove();
+    summary.append(label);
+    const innerAccordion = row.children[0]?.children[0]?.children[0];
+    const isInnerAccordion = innerAccordion && innerAccordion.querySelector('tr td') && innerAccordion.querySelector('tr td').textContent.includes('inner-');
+    if (isInnerAccordion) {
+      [...innerAccordion.children].forEach((innerRow, index) => {
+        if (index === 0) {
+          innerRow.remove();
+        }
+        const innerLabel = innerRow.children[0];
+        const innerSummary = document.createElement('summary');
+        innerSummary.className = 'accordion-item-label';
+        const innerBody = innerRow.children[1];
+        const innerItemContainer = document.createElement('div');
+        innerItemContainer.className = 'accordion-item-body';
+        const innerDetails = document.createElement('details');
+        innerDetails.className = 'accordion-item inner';
+        innerSummary.append(innerLabel);
+        innerItemContainer.append(...innerBody.childNodes);
+        innerDetails.append(innerSummary, innerItemContainer);
+        innerRow.replaceWith(innerDetails);
+      });
+    }
+    const innerItemContainer = document.createElement('div');
+    innerItemContainer.className = 'inner-accordion';
+    if (innerAccordion) innerItemContainer.append(...innerAccordion.childNodes);
     const details = document.createElement('details');
     details.className = 'accordion-item';
+    if (innerAccordion) itemContainer.append(innerItemContainer);
     details.append(summary, itemContainer);
     row.replaceWith(details);
   });
